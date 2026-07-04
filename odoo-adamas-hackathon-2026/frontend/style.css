@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+body{
+    font-family:'Hanken Grotesk',sans-serif;
+    background:#EAEDF2;
+}
+
+.material-symbols-outlined{
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.input-focus-ring:focus-within{
+    border-color:#f89300;
+    box-shadow:0 0 0 2px #f89300;
+}
+
+.right-image{
+    background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuBLPlZRNF-9Kn0A6cor87ummRQZPypNt6C8JtsO6g2dCT7gyrizMWDptNMhPCjZ0TpJcWKgzjoSxQVDZKSI-hqTAAhe2IzWVCKoCAY3z8WBqw83ZIxGknl6iC_A1rrw_HnE7TukJPcu-aBfenpOOnmbks3UXHwUcMt8myuOmWVOljUdYKNI6_wDh_Atm4NZm1mRsuTBZ4TO0srzbWjvKL-dN7vZ_RBHG6a4hG7lVib8vF3qm9ijCn1m");
+    background-size:cover;
+    background-position:center;
+}
