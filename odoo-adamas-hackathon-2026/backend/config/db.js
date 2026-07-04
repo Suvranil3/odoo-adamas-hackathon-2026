@@ -1,8 +1,9 @@
 const dotenv = require('dotenv');
+const path = require('path');
 const mysql = require('mysql2/promise');
 
 // Load environment variables from the backend .env file.
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 // Create a reusable MySQL connection pool for the application.
 const pool = mysql.createPool({
