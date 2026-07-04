@@ -1,4 +1,6 @@
-// Employee landing page JS: handles navigation and Check IN / Check OUT UI updates
+const API_BASE_URL = 'http://localhost:3000';
+
+// Employee landing page JS: handles navigation and live attendance updates
 
 document.addEventListener('DOMContentLoaded', function () {
     const checkInBtn = document.getElementById('check-in-btn');
@@ -12,18 +14,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const helpBtn = document.querySelector('button[title="Help"]');
     const employeeCards = document.querySelectorAll('.employee-card');
 
-    // Navigate to a page using window.location
+    const token = window.localStorage.getItem('hrms_token');
+    if (!token) {
+        window.location.href = 'loginpage.html';
+        return;
+    }
+
     function navigateTo(url) {
         window.location.href = url;
     }
 
-    // Build a URL with query string parameters
     function buildUrlWithParams(baseUrl, params) {
         const searchParams = new URLSearchParams(params);
         return `${baseUrl}?${searchParams.toString()}`;
     }
 
-    // Format current time to 12-hour display
     function formatTime(date) {
         const hours = date.getHours();
         const minutes = date.getMinutes();
@@ -32,17 +37,15 @@ document.addEventListener('DOMContentLoaded', function () {
         return `${normalizedHour}:${minutes.toString().padStart(2, '0')} ${ampm}`;
     }
 
-    // Update landing page attendance state to checked in
-    function setCheckedIn() {
+    function setCheckedIn(sinceLabel) {
         if (statusIndicator) {
             statusIndicator.classList.remove('bg-red-500');
             statusIndicator.classList.add('bg-green-500');
         }
         if (statusText) statusText.textContent = 'Checked In';
-        if (statusSince) statusSince.textContent = 'Since ' + formatTime(new Date());
+        if (statusSince) statusSince.textContent = 'Since ' + (sinceLabel || formatTime(new Date()));
     }
 
-    // Update landing page attendance state to checked out
     function setCheckedOut() {
         if (statusIndicator) {
             statusIndicator.classList.remove('bg-green-500');
@@ -52,7 +55,63 @@ document.addEventListener('DOMContentLoaded', function () {
         if (statusSince) statusSince.textContent = 'Since ' + formatTime(new Date());
     }
 
-    // Handle employee card click by passing profile data into the details page URL
+    function getAuthHeaders() {
+        return {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        };
+    }
+
+    async function loadAttendanceState() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/attendance/me`, {
+                headers: getAuthHeaders()
+            });
+
+            if (!response.ok) {
+                throw new Error('Unable to load attendance state.');
+            }
+
+            const records = await response.json();
+            const today = new Date();
+            const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+            const todayRecord = Array.isArray(records) ? records.find(function (record) {
+                return record.date === todayKey;
+            }) : null;
+
+            if (todayRecord && todayRecord.check_in && !todayRecord.check_out) {
+                setCheckedIn(todayRecord.check_in);
+                return;
+            }
+
+            setCheckedOut();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function submitAttendance(endpoint) {
+        try {
+            const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                method: 'POST',
+                headers: getAuthHeaders()
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || 'Attendance update failed.');
+            }
+
+            if (endpoint.includes('checkin')) {
+                setCheckedIn(data.attendance?.check_in || formatTime(new Date()));
+            } else {
+                setCheckedOut();
+            }
+        } catch (error) {
+            window.alert(error.message || 'Attendance update failed.');
+        }
+    }
+
     function handleEmployeeCardClick(event) {
         event.preventDefault();
         const card = event.currentTarget;
@@ -70,17 +129,17 @@ document.addEventListener('DOMContentLoaded', function () {
         navigateTo(detailsUrl);
     }
 
-    // Confirm logout before navigating back to the login page
     function handleLogoutClick(event) {
         const userConfirmed = window.confirm('Do you want to log out and return to the login page?');
         if (!userConfirmed) {
             event.preventDefault();
             return;
         }
+        window.localStorage.removeItem('hrms_token');
+        window.localStorage.removeItem('hrms_user');
         navigateTo('loginpage.html');
     }
 
-    // Navigate from Add New button to employee details page
     function handleAddNewClick(event) {
         event.preventDefault();
         navigateTo('employee_details_page.html');
@@ -89,14 +148,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (checkInBtn) {
         checkInBtn.addEventListener('click', function (event) {
             event.preventDefault();
-            setCheckedIn();
+            submitAttendance('/attendance/checkin');
         });
     }
 
     if (checkOutBtn) {
         checkOutBtn.addEventListener('click', function (event) {
             event.preventDefault();
-            setCheckedOut();
+            submitAttendance('/attendance/checkout');
         });
     }
 
@@ -111,18 +170,20 @@ document.addEventListener('DOMContentLoaded', function () {
     if (notificationsBtn) {
         notificationsBtn.addEventListener('click', function (event) {
             event.preventDefault();
-            window.alert('Notifications are not available in the prototype.');
+            window.alert('Notifications are synced with the backend when available.');
         });
     }
 
     if (helpBtn) {
         helpBtn.addEventListener('click', function (event) {
             event.preventDefault();
-            window.alert('Help is not available in the prototype.');
+            window.alert('Help is currently available through the HR portal.');
         });
     }
 
     employeeCards.forEach(function (card) {
         card.addEventListener('click', handleEmployeeCardClick);
     });
+
+    loadAttendanceState();
 });

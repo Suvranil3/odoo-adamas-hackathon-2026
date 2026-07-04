@@ -1,3 +1,5 @@
+const API_BASE_URL = 'http://localhost:3000';
+
 // time_off.js
 // External page logic for time_off_section.html.
 // Handles employee flow, navigation, filters, modal, and logout.
@@ -10,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     bindLeaveFilters();
     bindRequestModal();
     initializeMonthLabel();
+    loadLeaveRequests();
 });
 
 function bindLogout() {
@@ -20,6 +23,8 @@ function bindLogout() {
         event.preventDefault();
         const confirmed = window.confirm('Are you sure you want to logout?');
         if (confirmed) {
+            window.localStorage.removeItem('hrms_token');
+            window.localStorage.removeItem('hrms_user');
             window.location.href = 'loginpage.html';
         }
     });
@@ -148,7 +153,7 @@ function bindRequestModal() {
         }
     });
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit', async function (event) {
         event.preventDefault();
         const typeInput = document.getElementById('timeoff-type');
         const fromDateInput = document.getElementById('from-date');
@@ -160,6 +165,8 @@ function bindRequestModal() {
         const fromDate = new Date(fromDateInput.value);
         const toDate = new Date(toDateInput.value);
         const reason = reasonInput.value.trim();
+        const leaveType = typeInput.value;
+        const days = Math.max(1, Math.round((toDate - fromDate) / (1000 * 60 * 60 * 24)) + 1);
 
         if (fromDate.toString() === 'Invalid Date' || toDate.toString() === 'Invalid Date') {
             window.alert('Please select valid dates for your request.');
@@ -176,10 +183,97 @@ function bindRequestModal() {
             return;
         }
 
-        window.alert('Your time off request has been submitted.');
-        closeModal(modal);
-        form.reset();
+        try {
+            const response = await fetch(`${API_BASE_URL}/leaves`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${window.localStorage.getItem('hrms_token')}`
+                },
+                body: JSON.stringify({
+                    leaveType,
+                    startDate: fromDateInput.value,
+                    endDate: toDateInput.value,
+                    days,
+                    reason
+                })
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || 'Unable to submit leave request.');
+            }
+
+            window.alert('Your time off request has been submitted.');
+            closeModal(modal);
+            form.reset();
+            loadLeaveRequests();
+        } catch (error) {
+            window.alert(error.message || 'Unable to submit leave request.');
+        }
     });
+}
+
+async function loadLeaveRequests() {
+    const token = window.localStorage.getItem('hrms_token');
+    if (!token) {
+        window.location.href = 'loginpage.html';
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/leaves/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Unable to load leave requests.');
+        }
+
+        const leaves = await response.json();
+        renderLeaveRequests(leaves || []);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function renderLeaveRequests(leaves) {
+    const container = document.getElementById('leave-request-list');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    if (!leaves.length) {
+        container.innerHTML = '<div class="text-sm text-on-surface-variant">No leave requests yet.</div>';
+        return;
+    }
+
+    leaves.forEach(function (leave) {
+        const card = document.createElement('div');
+        card.className = 'rounded-lg border border-outline-variant p-4 bg-surface-white';
+        card.innerHTML = `
+            <div class="flex justify-between items-center mb-2">
+                <div class="font-semibold text-primary">${leave.leave_type || 'Leave'}</div>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold ${getStatusClass(leave.status)}">${capitalize(leave.status || 'pending')}</span>
+            </div>
+            <div class="text-sm text-on-surface-variant">${leave.reason || 'No reason provided'}</div>
+            <div class="text-sm text-on-surface-variant mt-1">${leave.start_date} to ${leave.end_date} • ${leave.days} days</div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function getStatusClass(status) {
+    if (!status) return 'bg-surface-container-low text-on-surface-variant';
+    if (status === 'approved') return 'bg-secondary-container text-on-secondary-container';
+    if (status === 'rejected') return 'bg-error-container text-error';
+    return 'bg-surface-container-low text-on-surface-variant';
+}
+
+function capitalize(text) {
+    return text ? text.charAt(0).toUpperCase() + text.slice(1) : '';
 }
 
 function closeModal(modal) {

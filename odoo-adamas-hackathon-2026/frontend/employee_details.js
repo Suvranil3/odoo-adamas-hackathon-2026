@@ -1,15 +1,14 @@
+const API_BASE_URL = 'http://localhost:3000';
+
 // Modular script for employee_details_page.html
-// Handles query param hydration and logout confirmation for the employee profile page.
+// Handles backend profile hydration and logout confirmation for the employee profile page.
 
 document.addEventListener('DOMContentLoaded', function () {
     bindLogout();
     hydrateProfileFromQuery();
+    loadProfileFromBackend();
 });
 
-/**
- * Bind logout button click behavior.
- * Shows a confirmation dialog and navigates to loginpage.html if confirmed.
- */
 function bindLogout() {
     const logoutButton = document.getElementById('logout-btn');
     if (!logoutButton) {
@@ -20,23 +19,17 @@ function bindLogout() {
         event.preventDefault();
         const confirmed = window.confirm('Are you sure you want to logout?');
         if (confirmed) {
+            window.localStorage.removeItem('hrms_token');
+            window.localStorage.removeItem('hrms_user');
             window.location.href = 'loginpage.html';
         }
     });
 }
 
-/**
- * Read a query parameter by key from the current URL.
- * @param {string} key
- * @returns {string}
- */
 function getQueryParam(key) {
     return new URLSearchParams(window.location.search).get(key) || '';
 }
 
-/**
- * Update profile fields on the page from query params if present.
- */
 function hydrateProfileFromQuery() {
     const fields = {
         name: 'employee-name',
@@ -59,4 +52,56 @@ function hydrateProfileFromQuery() {
             }
         }
     });
+}
+
+async function loadProfileFromBackend() {
+    const token = window.localStorage.getItem('hrms_token');
+    if (!token) {
+        window.location.href = 'loginpage.html';
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/employees/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Unable to load profile data.');
+        }
+
+        const profile = await response.json();
+        populateProfile(profile);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function populateProfile(profile) {
+    if (!profile) return;
+
+    const map = [
+        ['employee-name', profile.full_name || profile.employee_name || ''],
+        ['employee-role', profile.designation || profile.role || ''],
+        ['employee-email', profile.email || ''],
+        ['employee-mobile', profile.phone || ''],
+        ['employee-company', 'Adamas Solutions'],
+        ['employee-department', profile.department || ''],
+        ['employee-manager', 'HR Team'],
+        ['employee-location', 'Bengaluru, India']
+    ];
+
+    map.forEach(function ([elementId, value]) {
+        const element = document.getElementById(elementId);
+        if (element && value) {
+            element.textContent = value;
+        }
+    });
+
+    const loginElement = document.getElementById('employee-login');
+    if (loginElement && profile.employee_code) {
+        loginElement.textContent = profile.employee_code;
+    }
 }
