@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Employee Time Off Calendar View</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#a99373",
+                        "surface-dim": "#d7dadf",
+                        "surface-container": "#ebeef3",
+                        "on-primary-fixed": "#101c2b",
+                        "secondary": "#8b5000",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#f89300",
+                        "on-secondary-container": "#5f3500",
+                        "primary-container": "#232f3e",
+                        "primary": "#0e1a28",
+                        "on-primary-container": "#8a97a9",
+                        "inverse-surface": "#2d3135",
+                        "background": "#f7f9ff",
+                        "tertiary-fixed-dim": "#dcc3a1",
+                        "primary-fixed": "#d7e3f7",
+                        "surface-bright": "#f7f9ff",
+                        "on-tertiary-fixed": "#261904",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#55442a",
+                        "inverse-on-surface": "#eef1f6",
+                        "surface-container-low": "#f1f4f9",
+                        "on-surface": "#181c20",
+                        "on-surface-variant": "#44474c",
+                        "on-background": "#181c20",
+                        "surface-container-high": "#e5e8ed",
+                        "on-secondary-fixed-variant": "#6a3c00",
+                        "secondary-fixed-dim": "#ffb871",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c5c6cc",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-white": "#FFFFFF",
+                        "surface-tint": "#535f70",
+                        "tertiary-container": "#3b2c14",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#bbc7db",
+                        "error-container": "#ffdad6",
+                        "deep-navy-active": "#121E2F",
+                        "on-error": "#ffffff",
+                        "surface": "#f7f9ff",
+                        "primary-fixed-dim": "#bbc7db",
+                        "on-secondary-fixed": "#2d1600",
+                        "surface-container-highest": "#e0e3e8",
+                        "secondary-fixed": "#ffdcbe",
+                        "tertiary-fixed": "#f9dfbb",
+                        "on-primary-fixed-variant": "#3c4858",
+                        "outline": "#75777c",
+                        "tertiary": "#241803",
+                        "surface-variant": "#e0e3e8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Hanken Grotesk"],
+                        "title-md": ["Hanken Grotesk"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-20 bg-primary dark:bg-primary-container">
+        <div class="flex items-center gap-8">
+            <div class="font-headline-lg text-headline-lg font-bold text-on-primary dark:text-on-primary-container">HRMS
+                Portal</div>
+            <div class="flex md:flex gap-6">
+                <a class="text-on-primary-container/80 hover:text-on-primary transition-colors font-body-lg text-body-lg"
+                    href="employee_landing_page.html">Dashboard</a>
+                <a class="text-on-primary-container/80 hover:text-on-primary transition-colors font-body-lg text-body-lg"
+                    href="employee_attendance_section.html">Attendance</a>
+                <a class="border-b-2 border-secondary-container text-on-primary font-semibold pb-1 font-body-lg text-body-lg"
+                    href="time_off_section.html">Time Off</a>
+                <a class="text-on-primary-container/80 hover:text-on-primary transition-colors font-body-lg text-body-lg"
+                    href="employee_details_page.html">Profile</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <button id="notifications-btn"
+                class="text-on-primary dark:text-on-primary-container hover:bg-primary-container/50 dark:hover:bg-primary/50 rounded-lg p-2 transition-all duration-200 ease-in-out active:scale-95"
+                aria-label="Notifications">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <button id="help-btn"
+                class="text-on-primary dark:text-on-primary-container hover:bg-primary-container/50 dark:hover:bg-primary/50 rounded-lg p-2 transition-all duration-200 ease-in-out active:scale-95"
+                aria-label="Help">
+                <span class="material-symbols-outlined">help</span>
+            </button>
+            <button id="logout-btn"
+                class="text-on-primary dark:text-on-primary-container hover:bg-primary-container/50 dark:hover:bg-primary/50 rounded-lg px-3 py-2 border border-surface-dim transition-all duration-200 ease-in-out active:scale-95">
+                Log Out
+            </button>
+            <img alt="Profile" class="w-10 h-10 rounded-full border border-surface-dim"
+                data-alt="User profile administrator profile picture"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2wFtCWMfoscLLBgzKLJ8z8QoA6S_0CzwehKkwOr0dQlgPe0B-WL1IobWJgASV4tRY9h3Mw4X3OJ6f5tnAk0HNu3OyE8Xe0IClXj8MSPCITMTY1D0e2lR-OMtJFjgZarsGZZbpkZ5c3RPsH_xpRXZvCRXSISp2o_x-wXWlzOc8vKQnb2-bHt-g-y6bsELx4gnq_-jjbhvBXrJuagYBWCoyYjHzJbldtZrBKQu1ZuSz2dxIT3_wdSli" />
+        </div>
+    </nav>
+    <!-- Main Content Area -->
+    <main class="flex-1 mt-20 p-margin-desktop flex gap-gutter">
+        <!-- Left Panel: Calendar -->
+        <div class="flex-1 flex flex-col gap-6">
+            <!-- Filters & Controls -->
+            <div
+                class="bg-surface-white border border-outline-variant p-6 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-64">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+                        <input id="search-input"
+                            class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-DEFAULT bg-surface text-on-surface font-body-sm text-body-sm focus:border-secondary-container focus:ring-1 focus:ring-secondary-container outline-none transition-colors"
+                            placeholder="Search Employee" type="text" />
+                    </div>
+                    <select id="department-filter"
+                        class="border border-outline-variant rounded-DEFAULT bg-surface text-on-surface font-body-sm text-body-sm px-4 py-2 focus:border-secondary-container outline-none appearance-none cursor-pointer">
+                        <option value="">All Departments</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Sales">Sales</option>
+                    </select>
+                    <select id="status-filter"
+                        class="border border-outline-variant rounded-DEFAULT bg-surface text-on-surface font-body-sm text-body-sm px-4 py-2 focus:border-secondary-container outline-none appearance-none cursor-pointer">
+                        <option value="">All Status</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-4 bg-surface rounded-DEFAULT border border-outline-variant p-1">
+                    <button id="prev-month-btn"
+                        class="p-1 hover:bg-surface-container-high rounded-sm text-on-surface-variant transition-colors"
+                        aria-label="Previous month">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <span id="month-label" class="font-title-md text-title-md min-w-[120px] text-center">October
+                        2024</span>
+                    <button id="next-month-btn"
+                        class="p-1 hover:bg-surface-container-high rounded-sm text-on-surface-variant transition-colors"
+                        aria-label="Next month">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                    <button id="today-btn"
+                        class="ml-2 px-3 py-1 bg-primary text-on-primary font-label-md text-label-md rounded-DEFAULT hover:bg-primary-container transition-colors">Today</button>
+                </div>
+            </div>
+            <!-- Calendar Grid -->
+            <div
+                class="bg-surface-white border border-outline-variant rounded-lg overflow-hidden shadow-sm flex flex-col">
+                <div class="grid grid-cols-7 border-b border-outline-variant bg-surface">
+                    <div
+                        class="py-3 text-center font-label-md text-label-md text-on-surface-variant border-r border-outline-variant">
+                        Sun</div>
+                    <div
+                        class="py-3 text-center font-label-md text-label-md text-on-surface-variant border-r border-outline-variant">
+                        Mon</div>
+                    <div
+                        class="py-3 text-center font-label-md text-label-md text-on-surface-variant border-r border-outline-variant">
+                        Tue</div>
+                    <div
+                        class="py-3 text-center font-label-md text-label-md text-on-surface-variant border-r border-outline-variant">
+                        Wed</div>
+                    <div
+                        class="py-3 text-center font-label-md text-label-md text-on-surface-variant border-r border-outline-variant">
+                        Thu</div>
+                    <div
+                        class="py-3 text-center font-label-md text-label-md text-on-surface-variant border-r border-outline-variant">
+                        Fri</div>
+                    <div class="py-3 text-center font-label-md text-label-md text-on-surface-variant">Sat</div>
+                </div>
+                <div class="grid grid-cols-7 grid-rows-5 flex-1 bg-surface-white">
+                    <!-- Week 1 -->
+                    <div
+                        class="border-b border-r border-outline-variant min-h-[120px] p-2 relative bg-surface-container-lowest opacity-50">
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">29</span>
+                    </div>
+                    <div
+                        class="border-b border-r border-outline-variant min-h-[120px] p-2 relative bg-surface-container-lowest opacity-50">
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">30</span>
+                    </div>
+                    <div class="border-b border-r border-outline-variant min-h-[120px] p-2 relative"><span
+                            class="font-body-sm text-body-sm text-on-surface">1</span></div>
+                    <div class="border-b border-r border-outline-variant min-h-[120px] p-2 relative"><span
+                            class="font-body-sm text-body-sm text-on-surface">2</span></div>
+                    <div class="border-b border-r border-outline-variant min-h-[120px] p-2 relative">
+                        <span class="font-body-sm text-body-sm text-on-surface">3</span>
+                        <div
+                            class="mt-2 bg-primary-fixed text-on-primary-fixed-variant text-[10px] p-1 rounded-sm flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">
+                            <span class="w-2 h-2 rounded-full bg-primary block"></span>
+                            <span class="truncate">Sarah J. - Paid</span>
+                        </div>
+                    </div>
+                    <div class="border-b border-r border-outline-variant min-h-[120px] p-2 relative">
+                        <span class="font-body-sm text-body-sm text-on-surface">4</span>
+                        <div
+                            class="mt-2 bg-primary-fixed text-on-primary-fixed-variant text-[10px] p-1 rounded-sm flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">
+                            <span class="w-2 h-2 rounded-full bg-primary block"></span>
+                            <span class="truncate">Sarah J. - Paid</span>
+                        </div>
+                    </div>
+                    <div class="border-b border-outline-variant min-h-[120px] p-2 relative bg-surface"><span
+                            class="font-body-sm text-body-sm text-on-surface-variant">5</span></div>
+                    <!-- Week 2 -->
+                    <div class="border-b border-r border-outline-variant min-h-[120px] p-2 relative bg-surface"><span
+                            class="font-body-sm text-body-sm text-on-surface-variant">6</span></div>
+                    <div class="border-b border-r border-outline-variant min-h-[120px] p-2 relative">
+                        <span class="font-body-sm text-body-sm text-on-surface">7</span>
+                    </div>
+                    <div class="border-b border-r border-outline-variant min-h-[120px] p-2 relative">
+                        <span class="font-body-sm text-body-sm text-on-surface">8</span>
+                        <div
+                            class="mt-2 bg-error-container text-on-error-container text-[10px] p-1 rounded-sm flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">
+                            <span class="w-2 h-2 rounded-full bg-error block"></span>
+                            <span class="truncate">Mike R. - Sick</span>
+                        </div>
+                    </div>
+                    <div class="border-b border-r border-outline-variant min-h-[120px] p-2 relative">
+                        <span class="font-body-sm text-body-sm text-on-surface">9</span>
+                    </div>
+                    <div class="border-b border-r border-outline-variant min-h-[120px] p-2 relative">
+                        <span class="font-body-sm text-body-sm text-on-surface">10</span>
+                        <div
+                            class="mt-2 bg-surface-variant text-on-surface-variant text-[10px] p-1 rounded-sm flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">
+                            <span class="w-2 h-2 rounded-full bg-outline block"></span>
+                            <span class="truncate">Ana L. - Unpaid</span>
+                        </div>
+                    </div>
+                    <div class="border-b border-r border-outline-variant min-h-[120px] p-2 relative"><span
+                            class="font-body-sm text-body-sm text-on-surface">11</span></div>
+                    <div class="border-b border-outline-variant min-h-[120px] p-2 relative bg-surface"><span
+                            class="font-body-sm text-body-sm text-on-surface-variant">12</span></div>
+                    <!-- Add more weeks as needed to complete the grid structure, kept brief for example -->
+                    <div class="border-r border-outline-variant min-h-[120px] p-2 relative bg-surface"><span
+                            class="font-body-sm text-body-sm text-on-surface-variant">13</span></div>
+                    <div class="border-r border-outline-variant min-h-[120px] p-2 relative"><span
+                            class="font-body-sm text-body-sm text-on-surface bg-secondary-container text-on-secondary-container w-6 h-6 flex items-center justify-center rounded-full">14</span>
+                    </div>
+                    <div class="border-r border-outline-variant min-h-[120px] p-2 relative"><span
+                            class="font-body-sm text-body-sm text-on-surface">15</span></div>
+                    <div class="border-r border-outline-variant min-h-[120px] p-2 relative"><span
+                            class="font-body-sm text-body-sm text-on-surface">16</span></div>
+                    <div class="border-r border-outline-variant min-h-[120px] p-2 relative"><span
+                            class="font-body-sm text-body-sm text-on-surface">17</span></div>
+                    <div class="border-r border-outline-variant min-h-[120px] p-2 relative"><span
+                            class="font-body-sm text-body-sm text-on-surface">18</span></div>
+                    <div class="min-h-[120px] p-2 relative bg-surface"><span
+                            class="font-body-sm text-body-sm text-on-surface-variant">19</span></div>
+                </div>
+            </div>
+        </div>
+        <!-- Right Side Panel -->
+        <div class="w-80 flex flex-col gap-6 shrink-0">
+            <!-- Legend -->
+            <div class="bg-surface-white border border-outline-variant p-4 rounded-lg shadow-sm">
+                <h3 class="font-title-md text-title-md mb-4 text-on-surface">Leave Types</h3>
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="w-3 h-3 rounded-full bg-primary"></span>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Paid Time Off</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="w-3 h-3 rounded-full bg-error"></span>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Sick Leave</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="w-3 h-3 rounded-full bg-outline"></span>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Unpaid Leave</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Quick Stats -->
+            <div class="bg-surface-white border border-outline-variant p-4 rounded-lg shadow-sm">
+                <h3 class="font-title-md text-title-md mb-4 text-on-surface">Monthly Stats</h3>
+                <div class="flex flex-col gap-4">
+                    <div class="bg-surface p-3 rounded-DEFAULT">
+                        <div class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">
+                            Total Team Days Off</div>
+                        <div class="font-headline-lg text-headline-lg text-primary">42</div>
+                    </div>
+                    <div class="bg-surface p-3 rounded-DEFAULT">
+                        <div class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">
+                            Pending Requests</div>
+                        <div class="font-headline-lg text-headline-lg text-secondary-container">5</div>
+                    </div>
+                </div>
+                <button id="open-request-modal-btn"
+                    class="w-full mt-4 py-2 border-2 border-primary text-primary font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container transition-colors">View
+                    All Requests</button>
+            </div>
+        </div>
+    </main>
+    <div id="timeoff-modal"
+        class="hidden fixed inset-0 z-50 bg-primary/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div
+            class="w-full max-w-lg bg-surface-white rounded-xl shadow-2xl border border-outline-variant overflow-hidden">
+            <div
+                class="flex items-center justify-between px-6 py-4 border-b border-surface-container-high bg-surface-bright">
+                <h3 class="text-title-md font-title-md text-primary">Submit Time Off Request</h3>
+                <button id="close-request-modal-btn"
+                    class="text-on-surface-variant hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form id="timeoff-form" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-label-md font-label-md text-on-surface-variant mb-1">Time Off Type</label>
+                    <select id="timeoff-type" required
+                        class="w-full border border-outline-variant rounded p-2 text-body-lg font-body-lg focus:border-secondary-container focus:ring-1 focus:ring-secondary-container bg-surface-white">
+                        <option value="">Select type</option>
+                        <option>Paid Time Off</option>
+                        <option>Sick Leave</option>
+                        <option>Unpaid Leave</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-label-md font-label-md text-on-surface-variant mb-1">From Date</label>
+                        <input id="from-date" required
+                            class="w-full border border-outline-variant rounded p-2 text-body-lg font-body-lg focus:border-secondary-container focus:ring-1 focus:ring-secondary-container"
+                            type="date" />
+                    </div>
+                    <div>
+                        <label class="block text-label-md font-label-md text-on-surface-variant mb-1">To Date</label>
+                        <input id="to-date" required
+                            class="w-full border border-outline-variant rounded p-2 text-body-lg font-body-lg focus:border-secondary-container focus:ring-1 focus:ring-secondary-container"
+                            type="date" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-label-md font-label-md text-on-surface-variant mb-1">Reason</label>
+                    <textarea id="request-reason" required rows="4"
+                        class="w-full border border-outline-variant rounded p-2 text-body-lg font-body-lg focus:border-secondary-container focus:ring-1 focus:ring-secondary-container"></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-4 border-t border-surface-container-high">
+                    <button type="button" id="cancel-request-btn"
+                        class="px-4 py-2 border border-primary text-primary rounded font-label-md text-label-md font-bold hover:bg-surface-container-low transition-colors">Cancel</button>
+                    <button type="submit" id="submit-request-btn"
+                        class="px-4 py-2 bg-secondary-container text-on-primary rounded font-label-md text-label-md font-bold hover:bg-secondary transition-colors">Submit
+                        Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="time_off.js"></script>
+</body>
+
+</html>

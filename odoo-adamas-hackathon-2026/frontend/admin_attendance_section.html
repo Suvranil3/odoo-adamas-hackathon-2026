@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>HRMS Portal - Admin Attendance &amp; Time Off</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link
@@ -170,18 +171,18 @@
                     HRMS Portal
                 </div>
                 <!-- Navigation Links (Desktop) -->
-                <nav class="hidden md:flex gap-6 items-center h-full pt-1">
+                <nav class="flex md:flex gap-6 items-center h-full pt-1">
                     <a class="text-on-primary/80 font-label-md text-label-md hover:text-secondary-fixed transition-colors duration-200 py-1"
                         href="admin_landing_page.html">Employees</a>
                     <a class="text-secondary-fixed font-bold font-label-md text-label-md border-b-2 border-secondary-fixed pb-1 hover:text-secondary-fixed transition-colors duration-200"
-                        href="#">Attendance</a>
+                        href="admin_attendance_section.html">Attendance</a>
                     <a class="text-on-primary/80 font-label-md text-label-md hover:text-secondary-fixed transition-colors duration-200 py-1"
-                        href="#">Time Off</a>
+                        href="time_off_section.html">Time Off</a>
                 </nav>
             </div>
             <!-- Actions & Profile -->
             <div class="flex items-center gap-4">
-                <div class="hidden md:flex items-center gap-3">
+                <div class="flex md:flex items-center gap-3">
                     <button class="text-on-primary/80 hover:text-secondary-fixed transition-colors duration-200">
                         <span class="material-symbols-outlined">search</span>
                     </button>
@@ -190,6 +191,10 @@
                     </button>
                     <button class="text-on-primary/80 hover:text-secondary-fixed transition-colors duration-200">
                         <span class="material-symbols-outlined">help</span>
+                    </button>
+                    <button id="logout-btn"
+                        class="text-on-primary/80 hover:text-secondary-fixed transition-colors duration-200 px-3 py-1 rounded border border-on-primary/20">
+                        Logout
                     </button>
                 </div>
                 <div
@@ -215,7 +220,7 @@
                 <div class="relative w-full md:w-64">
                     <span
                         class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
-                    <input
+                    <input id="attendance-search-input"
                         class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded bg-surface-white focus:outline-none focus:border-[#FF9700] focus:ring-1 focus:ring-[#FF9700] font-body-sm text-body-sm text-on-surface transition-all"
                         placeholder="Search employees..." type="text" />
                 </div>
@@ -270,17 +275,19 @@
                         <h2 class="font-title-md text-title-md text-on-surface">Attendances List</h2>
                         <!-- Date Controls -->
                         <div class="flex items-center gap-2">
-                            <button
-                                class="p-1 border border-outline-variant rounded hover:bg-surface-container-low transition-colors text-on-surface-variant flex items-center justify-center">
+                            <button id="prev-month-btn"
+                                class="p-1 border border-outline-variant rounded hover:bg-surface-container-low transition-colors text-on-surface-variant flex items-center justify-center"
+                                aria-label="Previous day">
                                 <span class="material-symbols-outlined text-sm">chevron_left</span>
                             </button>
-                            <div
+                            <div id="date-label"
                                 class="px-3 py-1.5 border border-outline-variant rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface flex items-center gap-2 cursor-pointer hover:border-[#FF9700] transition-colors">
                                 22 October 2025
                                 <span class="material-symbols-outlined text-sm">calendar_today</span>
                             </div>
-                            <button
-                                class="p-1 border border-outline-variant rounded hover:bg-surface-container-low transition-colors text-on-surface-variant flex items-center justify-center">
+                            <button id="next-month-btn"
+                                class="p-1 border border-outline-variant rounded hover:bg-surface-container-low transition-colors text-on-surface-variant flex items-center justify-center"
+                                aria-label="Next day">
                                 <span class="material-symbols-outlined text-sm">chevron_right</span>
                             </button>
                             <div class="ml-2 flex rounded border border-outline-variant overflow-hidden">
@@ -439,10 +446,10 @@
                             <span class="bg-error text-on-error font-label-sm text-[10px] px-2 py-0.5 rounded-full">3
                                 New</span>
                         </div>
-                        <button
+                        <a id="view-all-requests-btn" href="time_off_section.html"
                             class="text-secondary-fixed-dim hover:text-[#FF9700] text-sm font-label-md transition-colors flex items-center gap-1">
                             View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                        </button>
+                        </a>
                     </div>
                     <!-- Requests List -->
                     <div class="flex flex-col gap-4 overflow-y-auto custom-scrollbar pr-2" style="max-height: 500px;">
@@ -566,38 +573,7 @@
             </div>
         </div>
     </main>
-    <script>
-        function getQueryParam(key) {
-            return new URLSearchParams(window.location.search).get(key) || '';
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const name = getQueryParam('name');
-            const role = getQueryParam('role');
-            const email = getQueryParam('email');
-            const mobile = getQueryParam('mobile');
-            const company = getQueryParam('company');
-            const department = getQueryParam('department');
-            const manager = getQueryParam('manager');
-            const location = getQueryParam('location');
-
-            const selectedCard = document.getElementById('selected-employee-card');
-            const emptyCard = document.getElementById('selected-employee-empty');
-
-            if (name) {
-                document.getElementById('selected-employee-name').textContent = name;
-                document.getElementById('selected-employee-role').textContent = role;
-                document.getElementById('selected-employee-email').textContent = email;
-                document.getElementById('selected-employee-mobile').textContent = mobile;
-                document.getElementById('selected-employee-company').textContent = company;
-                document.getElementById('selected-employee-department').textContent = department;
-                document.getElementById('selected-employee-manager').textContent = manager;
-                document.getElementById('selected-employee-location').textContent = location;
-                selectedCard.classList.remove('hidden');
-                emptyCard.classList.add('hidden');
-            }
-        });
-    </script>
+    <script src="admin_attendance.js"></script>
     <!-- Footer -->
     <footer class="bg-surface-container-lowest border-t border-outline-variant mt-auto">
         <div
@@ -611,11 +587,11 @@
             </div>
             <nav class="flex gap-4 items-center">
                 <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors duration-200"
-                    href="#">Privacy Policy</a>
+                    href="javascript:void(0);">Privacy Policy</a>
                 <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors duration-200"
-                    href="#">Terms of Service</a>
+                    href="javascript:void(0);">Terms of Service</a>
                 <a class="text-body-sm font-body-sm text-on-surface-variant hover:text-secondary transition-colors duration-200"
-                    href="#">Support</a>
+                    href="javascript:void(0);">Support</a>
             </nav>
         </div>
     </footer>

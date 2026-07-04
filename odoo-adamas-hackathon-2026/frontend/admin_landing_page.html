@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Employee Directory - HRMS Portal</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet">
     <link
@@ -121,15 +122,18 @@
         <div class="flex justify-between items-center w-full px-margin-desktop py-4 mx-auto container-max">
             <!-- Brand -->
             <div class="flex items-center gap-6">
-                <a class="text-title-md font-title-md font-bold text-on-primary" href="#">HRMS Portal</a>
+                <a class="text-title-md font-title-md font-bold text-on-primary" href="admin_landing_page.html">HRMS
+                    Portal</a>
                 <!-- Navigation Links -->
-                <div class="hidden md:flex gap-4">
+                <div class="flex md:flex gap-4">
                     <a class="text-secondary-container font-bold border-b-2 border-secondary-container pb-1 text-label-md font-label-md"
-                        href="#">Employees</a>
+                        href="admin_landing_page.html">Dashboard</a>
+                    <a class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant transition-all rounded px-2 py-1 text-label-md font-label-md"
+                        href="employee_details_page.html">Employees</a>
                     <a class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant transition-all rounded px-2 py-1 text-label-md font-label-md"
                         href="admin_attendance_section.html">Attendance</a>
                     <a class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant transition-all rounded px-2 py-1 text-label-md font-label-md"
-                        href="#">Time Off</a>
+                        href="time_off_section.html">Time Off</a>
                 </div>
             </div>
             <!-- Right Actions -->
@@ -162,10 +166,11 @@
                         class="absolute right-0 mt-2 w-48 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <div class="py-1">
                             <a class="block px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container transition-colors"
-                                href="#">My Profile</a>
+                                href="employee_details_page.html">My Profile</a>
                             <div class="border-t border-outline-variant"></div>
-                            <a class="block px-4 py-2 text-body-sm font-body-sm text-error hover:bg-error-container hover:text-on-error-container transition-colors"
-                                href="#">Log Out</a>
+                            <a id="dropdown-logout-link"
+                                class="block px-4 py-2 text-body-sm font-body-sm text-error hover:bg-error-container hover:text-on-error-container transition-colors"
+                                href="loginpage.html">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -179,10 +184,10 @@
         <section class="flex-1">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-headline-lg font-headline-lg text-primary">Directory</h1>
-                <button
-                    class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg text-label-md font-label-md hover:brightness-95 transition-all shadow-sm">
+                <a href="employee_details_page.html"
+                    class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg text-label-md font-label-md hover:brightness-95 transition-all shadow-sm inline-flex items-center justify-center">
                     + Add New
-                </button>
+                </a>
             </div>
             <!-- Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -328,18 +333,7 @@
             </div>
         </aside>
     </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('a[data-name]').forEach(function (anchor) {
-                const params = new URLSearchParams({
-                    name: anchor.dataset.name || '',
-                    role: anchor.dataset.role || '',
-                    email: anchor.dataset.email || '',
-                    mobile: anchor.dataset.mobile || '',
-                    company: anchor.dataset.company || '',
-                    department: anchor.dataset.department || '',
-                    manager: anchor.dataset.manager || '',
-                    location: anchor.dataset.location || ''
-                });
-                anchor.href = 'admin_attendance_section.html?' + params.toString();
-</html >
+    <script src="admin_landing.js"></script>
+</body>
+
+</html>

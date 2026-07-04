@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Employee Directory - HRMS Portal</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet">
     <link
@@ -121,15 +122,22 @@
         <div class="flex justify-between items-center w-full px-margin-desktop py-4 mx-auto container-max">
             <!-- Brand -->
             <div class="flex items-center gap-6">
-                <a class="text-title-md font-title-md font-bold text-on-primary" href="#">HRMS Portal</a>
+                <a class="text-title-md font-title-md font-bold text-on-primary" href="employee_landing_page.html">HRMS
+                    Portal</a>
                 <!-- Navigation Links -->
-                <div class="hidden md:flex gap-4">
-                    <a class="text-secondary-container font-bold border-b-2 border-secondary-container pb-1 text-label-md font-label-md"
-                        href="#">Employees</a>
-                    <a class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant transition-all rounded px-2 py-1 text-label-md font-label-md"
+                <div class="flex md:flex gap-4">
+                    <a id="nav-dashboard"
+                        class="text-secondary-container font-bold border-b-2 border-secondary-container pb-1 text-label-md font-label-md"
+                        href="employee_landing_page.html">Dashboard</a>
+                    <a id="nav-attendance"
+                        class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant transition-all rounded px-2 py-1 text-label-md font-label-md"
                         href="employee_attendance_section.html">Attendance</a>
-                    <a class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant transition-all rounded px-2 py-1 text-label-md font-label-md"
-                        href="#">Time Off</a>
+                    <a id="nav-timeoff"
+                        class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant transition-all rounded px-2 py-1 text-label-md font-label-md"
+                        href="time_off_section.html">Time Off</a>
+                    <a id="nav-profile"
+                        class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant transition-all rounded px-2 py-1 text-label-md font-label-md"
+                        href="employee_details_page.html">Profile</a>
                 </div>
             </div>
             <!-- Right Actions -->
@@ -161,11 +169,13 @@
                     <div
                         class="absolute right-0 mt-2 w-48 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <div class="py-1">
-                            <a class="block px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container transition-colors"
-                                href="#">My Profile</a>
+                            <a id="dropdown-profile"
+                                class="block px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container transition-colors"
+                                href="employee_details_page.html">My Profile</a>
                             <div class="border-t border-outline-variant"></div>
-                            <a class="block px-4 py-2 text-body-sm font-body-sm text-error hover:bg-error-container hover:text-on-error-container transition-colors"
-                                href="#">Log Out</a>
+                            <a id="dropdown-logout"
+                                class="block px-4 py-2 text-body-sm font-body-sm text-error hover:bg-error-container hover:text-on-error-container transition-colors"
+                                href="loginpage.html">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -179,7 +189,7 @@
         <section class="flex-1">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-headline-lg font-headline-lg text-primary">Directory</h1>
-                <button
+                <button id="add-new-btn"
                     class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg text-label-md font-label-md hover:brightness-95 transition-all shadow-sm">
                     + Add New
                 </button>
@@ -187,8 +197,10 @@
             <!-- Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Card 1 -->
-                <a class="block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
-                    href="#">
+                <a class="employee-card block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
+                    href="employee_details_page.html" data-name="John Doe" data-role="Senior Software Engineer"
+                    data-email="john.doe@example.com" data-mobile="+1 555-0123" data-company="Adamas Solutions"
+                    data-department="Engineering" data-manager="Carol Hayes" data-location="New York">
                     <div class="absolute top-4 right-4"><span
                             class="w-3 h-3 rounded-full bg-green-500 inline-block shadow-sm border border-white"
                             title="Present"></span></div>
@@ -203,8 +215,10 @@
                     </div>
                 </a>
                 <!-- Card 2 -->
-                <a class="block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
-                    href="#">
+                <a class="employee-card block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
+                    href="employee_details_page.html" data-name="Sarah Smith" data-role="Product Strategy Lead"
+                    data-email="sarah.smith@example.com" data-mobile="+1 555-0234" data-company="Adamas Solutions"
+                    data-department="Product" data-manager="Ravi Patel" data-location="San Francisco">
                     <div class="absolute top-4 right-4"><span
                             class="material-symbols-outlined text-blue-500 text-lg shadow-sm"
                             title="On Leave">flight</span></div>
@@ -219,8 +233,10 @@
                     </div>
                 </a>
                 <!-- Card 3 -->
-                <a class="block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
-                    href="#">
+                <a class="employee-card block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
+                    href="employee_details_page.html" data-name="Mike Chen" data-role="Senior UX Designer"
+                    data-email="mike.chen@example.com" data-mobile="+1 555-0345" data-company="Adamas Solutions"
+                    data-department="Design" data-manager="Lisa Morgan" data-location="Austin">
                     <div class="absolute top-4 right-4"><span
                             class="w-3 h-3 rounded-full bg-yellow-400 inline-block shadow-sm border border-white"
                             title="Absent"></span></div>
@@ -235,8 +251,10 @@
                     </div>
                 </a>
                 <!-- Card 4 -->
-                <a class="block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
-                    href="#">
+                <a class="employee-card block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
+                    href="employee_details_page.html" data-name="Emily Davis" data-role="Infrastructure Engineer"
+                    data-email="emily.davis@example.com" data-mobile="+1 555-0456" data-company="Adamas Solutions"
+                    data-department="Infrastructure" data-manager="Martin Perry" data-location="Seattle">
                     <div class="absolute top-4 right-4"><span
                             class="w-3 h-3 rounded-full bg-green-500 inline-block shadow-sm border border-white"
                             title="Present"></span></div>
@@ -251,8 +269,10 @@
                     </div>
                 </a>
                 <!-- Card 5 -->
-                <a class="block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
-                    href="#">
+                <a class="employee-card block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
+                    href="employee_details_page.html" data-name="David Wilson" data-role="HR Operations Manager"
+                    data-email="david.wilson@example.com" data-mobile="+1 555-0567" data-company="Adamas Solutions"
+                    data-department="Human Resources" data-manager="Paula Reed" data-location="Chicago">
                     <div class="absolute top-4 right-4"><span
                             class="w-3 h-3 rounded-full bg-green-500 inline-block shadow-sm border border-white"
                             title="Present"></span></div>
@@ -267,8 +287,10 @@
                     </div>
                 </a>
                 <!-- Card 6 -->
-                <a class="block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
-                    href="#">
+                <a class="employee-card block bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md hover:-translate-y-1 transition-all group cursor-pointer relative"
+                    href="employee_details_page.html" data-name="Anna Lee" data-role="Marketing Strategy Lead"
+                    data-email="anna.lee@example.com" data-mobile="+1 555-0678" data-company="Adamas Solutions"
+                    data-department="Marketing" data-manager="Tina Brooks" data-location="Boston">
                     <div class="absolute top-4 right-4"><span
                             class="material-symbols-outlined text-blue-500 text-lg shadow-sm"
                             title="On Leave">flight</span></div>

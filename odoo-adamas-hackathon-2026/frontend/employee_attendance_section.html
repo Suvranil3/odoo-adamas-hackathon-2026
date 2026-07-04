@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Employee Dashboard - Attendance &amp; Time Off</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link
@@ -155,17 +156,19 @@
             <div class="text-title-md font-title-md font-bold text-on-primary">
                 HRMS Portal
             </div>
-            <div class="hidden md:flex gap-6 items-center">
-                <a class="text-label-md font-label-md text-on-primary/80 hover:text-secondary-fixed transition-colors duration-200"
-                    href="employee_landing_page.html">Employees</a>
+            <div class="flex md:flex gap-6 items-center">
+                <a class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant px-2 py-1 rounded text-label-md font-label-md active:scale-95 duration-200"
+                    href="employee_landing_page.html">Dashboard</a>
                 <a class="text-label-md font-label-md text-secondary-fixed font-bold border-b-2 border-secondary-fixed pb-1"
-                    href="#">Attendance</a>
-                <a class="text-label-md font-label-md text-on-primary/80 hover:text-secondary-fixed transition-colors duration-200"
-                    href="#">Time Off</a>
+                    href="employee_attendance_section.html">Attendance</a>
+                <a class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant px-2 py-1 rounded text-label-md font-label-md active:scale-95 duration-200"
+                    href="time_off_section.html">Time Off</a>
+                <a class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant px-2 py-1 rounded text-label-md font-label-md active:scale-95 duration-200"
+                    href="employee_details_page.html">Profile</a>
             </div>
         </div>
         <div class="flex items-center gap-4">
-            <div class="hidden md:flex gap-4 text-on-primary">
+            <div class="flex md:flex gap-4 text-on-primary">
                 <button
                     class="hover:text-secondary-fixed transition-colors duration-200 flex items-center justify-center">
                     <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
@@ -175,6 +178,10 @@
                     <span class="material-symbols-outlined" data-icon="help">help</span>
                 </button>
             </div>
+            <button id="logout-btn"
+                class="text-on-primary-container hover:text-on-primary transition-colors px-3 py-2 border border-outline-variant rounded-lg">
+                Log Out
+            </button>
             <img alt="User profile photo" class="w-10 h-10 rounded-full object-cover border-2 border-surface-container"
                 data-alt="A professional headshot of a corporate employee smiling slightly, well-lit studio lighting, neutral background, modern corporate style."
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAog-xLYSx7aZCyU4Nvy-jQ56LVRomN8uw62OY4m6gQ1qJXBEGDnvGoC6isswS9hP0Kw4V8VUtNDzdKq5t3YgrD-J9D7qfMg1ET8r-hH1_-fkX1qf-3Qt935D5uxG3Q3V0spVFR5s9vVra_vEXbqZUa0vdOOUzTBpYffzpszHJJ4a_OlfBe7WJNUlOJbrzeIl_wrxaql0OwFcbfFFhqcNjyVJ3QrIe06dl6N4YjRBHP73BbGkMP2Nzi" />
@@ -186,10 +193,10 @@
         <div class="flex gap-4 mb-8 border-b border-outline-variant">
             <button
                 class="px-4 py-2 text-label-md font-label-md text-primary font-bold border-b-2 border-secondary-container transition-colors"
-                id="tab-btn-attendance" onclick="switchTab('attendance')">My Attendance</button>
+                id="tab-btn-attendance">My Attendance</button>
             <button
                 class="px-4 py-2 text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors"
-                id="tab-btn-timeoff" onclick="switchTab('timeoff')">Time Off</button>
+                id="tab-btn-timeoff">Time Off</button>
         </div>
         <!-- Attendance Tab Content -->
         <div class="tab-content active space-y-6" id="tab-attendance">
@@ -197,16 +204,18 @@
             <div
                 class="bg-surface-white rounded-xl border border-outline-variant p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div class="flex items-center gap-2">
-                    <button
-                        class="p-2 rounded border border-outline-variant hover:bg-surface-container-low transition-colors text-on-surface flex items-center justify-center">
+                    <button id="prev-month-btn"
+                        class="p-2 rounded border border-outline-variant hover:bg-surface-container-low transition-colors text-on-surface flex items-center justify-center"
+                        aria-label="Previous month">
                         <span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
                     </button>
-                    <button
-                        class="p-2 rounded border border-outline-variant hover:bg-surface-container-low transition-colors text-on-surface flex items-center justify-center">
+                    <button id="next-month-btn"
+                        class="p-2 rounded border border-outline-variant hover:bg-surface-container-low transition-colors text-on-surface flex items-center justify-center"
+                        aria-label="Next month">
                         <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
                     </button>
                     <div class="relative">
-                        <select
+                        <select id="month-select"
                             class="appearance-none bg-surface-white border border-outline-variant text-on-surface text-label-md font-label-md rounded px-4 py-2 pr-8 focus:outline-none focus:border-secondary-container focus:ring-1 focus:ring-secondary-container cursor-pointer">
                             <option>October 2025</option>
                             <option>September 2025</option>
@@ -295,9 +304,8 @@
         <div class="tab-content space-y-6" id="tab-timeoff">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-title-md font-title-md text-primary">My Time Off</h2>
-                <button
-                    class="bg-secondary-container text-on-primary px-6 py-2 rounded font-label-md text-label-md font-bold hover:bg-secondary transition-colors flex items-center gap-2"
-                    onclick="document.getElementById('request-modal').classList.remove('hidden')">
+                <button id="open-request-modal-btn"
+                    class="bg-secondary-container text-on-primary px-6 py-2 rounded font-label-md text-label-md font-bold hover:bg-secondary transition-colors flex items-center gap-2">
                     <span class="material-symbols-outlined" data-icon="add">add</span> New Request
                 </button>
             </div>
@@ -363,8 +371,8 @@
             class="bg-surface-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden flex flex-col border border-outline-variant">
             <div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
                 <h3 class="text-title-md font-title-md text-primary">Time Off Request</h3>
-                <button class="text-on-surface-variant hover:text-primary transition-colors"
-                    onclick="document.getElementById('request-modal').classList.add('hidden')">
+                <button id="close-request-modal-btn"
+                    class="text-on-surface-variant hover:text-primary transition-colors">
                     <span class="material-symbols-outlined" data-icon="close">close</span>
                 </button>
             </div>
@@ -413,9 +421,8 @@
                 </div>
             </div>
             <div class="px-6 py-4 border-t border-outline-variant flex justify-end gap-3 bg-surface-bright">
-                <button
-                    class="px-4 py-2 border border-primary text-primary rounded font-label-md text-label-md font-bold hover:bg-surface-container-low transition-colors"
-                    onclick="document.getElementById('request-modal').classList.add('hidden')">Discard</button>
+                <button id="discard-request-btn"
+                    class="px-4 py-2 border border-primary text-primary rounded font-label-md text-label-md font-bold hover:bg-surface-container-low transition-colors">Discard</button>
                 <button
                     class="px-4 py-2 bg-secondary-container text-on-primary rounded font-label-md text-label-md font-bold hover:bg-secondary transition-colors">Submit
                     Request</button>
@@ -429,26 +436,15 @@
             <div class="text-label-md font-label-md font-semibold text-primary mb-2 md:mb-0">Corporate Modern HRMS</div>
             <div>© 2024 Corporate Modern HRMS. All rights reserved.</div>
             <div class="flex gap-4 mt-2 md:mt-0">
-                <a class="hover:text-secondary transition-colors duration-200" href="#">Privacy Policy</a>
-                <a class="hover:text-secondary transition-colors duration-200" href="#">Terms of Service</a>
-                <a class="hover:text-secondary transition-colors duration-200" href="#">Support</a>
+                <a class="hover:text-secondary transition-colors duration-200" href="javascript:void(0);">Privacy
+                    Policy</a>
+                <a class="hover:text-secondary transition-colors duration-200" href="javascript:void(0);">Terms of
+                    Service</a>
+                <a class="hover:text-secondary transition-colors duration-200" href="javascript:void(0);">Support</a>
             </div>
         </div>
     </footer>
-    <script>
-        function switchTab(tabId) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            // Remove active styles from buttons
-            document.getElementById('tab-btn-attendance').className = "px-4 py-2 text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors";
-            document.getElementById('tab-btn-timeoff').className = "px-4 py-2 text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors";
-
-            // Show selected tab
-            document.getElementById('tab-' + tabId).classList.add('active');
-            // Add active styles to button
-            document.getElementById('tab-btn-' + tabId).className = "px-4 py-2 text-label-md font-label-md text-primary font-bold border-b-2 border-secondary-container transition-colors";
-        }
-    </script>
+    <script src="employee_attendance.js"></script>
 </body>
 
 </html>
