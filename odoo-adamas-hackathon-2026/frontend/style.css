@@ -1,26 +1,162 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
-body{
-    font-family:'Hanken Grotesk',sans-serif;
-    background:#EAEDF2;
+body {
+    font-family: 'Hanken Grotesk', sans-serif;
+    background: #F8FAFC;
+    /* Tailwind slate-50 -> softer neutral background */
 }
 
-.material-symbols-outlined{
+/* Ensure Tailwind utility `bg-background` doesn't override the intended page background */
+.bg-background {
+    background-color: #F8FAFC !important
+}
+
+/* Left panel background (slightly darker than page) */
+.left-panel {
+    background-color: #F1F5F9
+}
+
+.material-symbols-outlined {
     font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
 }
 
-.input-focus-ring:focus-within{
-    border-color:#f89300;
-    box-shadow:0 0 0 2px #f89300;
+.input-focus-ring:focus-within,
+.input-focus-ring:focus-visible {
+    border-color: #1E293B !important;
+    /* slate-800 focus border */
+    box-shadow: 0 0 0 4px rgba(30, 41, 59, 0.12) !important;
+    /* accessible focus ring using slate-800 */
 }
 
-.right-image{
-    background-image:url("https://lh3.googleusercontent.com/aida-public/AB6AXuBLPlZRNF-9Kn0A6cor87ummRQZPypNt6C8JtsO6g2dCT7gyrizMWDptNMhPCjZ0TpJcWKgzjoSxQVDZKSI-hqTAAhe2IzWVCKoCAY3z8WBqw83ZIxGknl6iC_A1rrw_HnE7TukJPcu-aBfenpOOnmbks3UXHwUcMt8myuOmWVOljUdYKNI6_wDh_Atm4NZm1mRsuTBZ4TO0srzbWjvKL-dN7vZ_RBHG6a4hG7lVib8vF3qm9ijCn1m");
-    background-size:cover;
-    background-position:center;
+/* Primary button override to match enterprise palette (slate-900 / slate-800) */
+.bg-primary-container {
+    background-color: #0F172A !important;
+    /* slate-900 */
+    transition: background-color 160ms ease-in-out, box-shadow 120ms ease-in-out;
+    border-color: transparent;
+}
+
+.bg-primary-container:hover,
+.bg-primary-container:focus,
+.bg-primary-container:active {
+    background-color: #1E293B !important;
+    /* slate-800 */
+}
+
+/* Ensure button elements using the utility class also pick up the primary palette */
+button.bg-primary-container {
+    background-color: #0F172A !important
+}
+
+button.bg-primary-container:hover {
+    background-color: #1E293B !important
+}
+
+/* Improved table styles to make tables rounded, divided, with hover states */
+.table-improved {
+    border-radius: 1rem;
+    /* rounded-xl */
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.table-improved table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-improved thead th {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    z-index: 10;
+    padding: 12px 16px;
+    text-align: left;
+}
+
+.table-improved tbody tr {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.table-improved tbody tr:hover {
+    background: #F8FAFC;
+    /* hover:bg-slate-50 */
+}
+
+.table-improved td {
+    padding: 12px 16px;
+    vertical-align: middle;
+}
+
+/* Dashboard statistic card styles */
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #ffffff;
+    padding: 16px;
+    border-radius: 8px;
+    /* keep within 4-8px guidance */
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    /* subtle neutral fallback */
+    color: #0F172A;
+    flex-shrink: 0;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0F172A
+}
+
+.stat-desc {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 4px
+}
+
+.stat-trend {
+    margin-left: auto;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
+.trend-up {
+    color: #16a34a
+}
+
+.trend-down {
+    color: #dc2626
+}
+
+
+.right-image {
+    /* Local background image - place your file at frontend/assets/background.png */
+    background-image: url("assets/background.png");
+    background-size: cover;
+    background-position: center;
 }
