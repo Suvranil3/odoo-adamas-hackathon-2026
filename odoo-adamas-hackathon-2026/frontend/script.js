@@ -12,3 +12,14 @@ function togglePasswordVisibility() {
     }
 
 }
+
+// Redirect forms with `data-redirect` attribute to target page after submit (mock login)
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form[data-redirect]').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const target = form.getAttribute('data-redirect');
+            if (target) window.location.href = target;
+        });
+    });
+});
