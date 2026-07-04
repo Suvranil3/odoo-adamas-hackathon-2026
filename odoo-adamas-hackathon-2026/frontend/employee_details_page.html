@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>HRMS Portal - Employee Profile</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#181c20",
+                        "primary-fixed": "#d7e3f7",
+                        "error": "#ba1a1a",
+                        "inverse-on-surface": "#eef1f6",
+                        "deep-navy-active": "#121E2F",
+                        "secondary": "#8b5000",
+                        "surface-white": "#FFFFFF",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#ffdcbe",
+                        "on-tertiary-fixed": "#261904",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#535f70",
+                        "on-secondary-fixed-variant": "#6a3c00",
+                        "outline": "#75777c",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e0e3e8",
+                        "surface-variant": "#e0e3e8",
+                        "on-tertiary-fixed-variant": "#55442a",
+                        "on-secondary-container": "#5f3500",
+                        "on-primary-fixed": "#101c2b",
+                        "inverse-surface": "#2d3135",
+                        "primary": "#0e1a28",
+                        "on-primary-fixed-variant": "#3c4858",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#f89300",
+                        "primary-fixed-dim": "#bbc7db",
+                        "surface": "#f7f9ff",
+                        "surface-container-low": "#f1f4f9",
+                        "surface-bright": "#f7f9ff",
+                        "primary-container": "#232f3e",
+                        "on-secondary-fixed": "#2d1600",
+                        "tertiary": "#241803",
+                        "inverse-primary": "#bbc7db",
+                        "surface-container": "#ebeef3",
+                        "surface-container-high": "#e5e8ed",
+                        "outline-variant": "#c5c6cc",
+                        "tertiary-container": "#3b2c14",
+                        "surface-dim": "#d7dadf",
+                        "tertiary-fixed-dim": "#dcc3a1",
+                        "on-background": "#181c20",
+                        "on-primary-container": "#8a97a9",
+                        "tertiary-fixed": "#f9dfbb",
+                        "on-tertiary-container": "#a99373",
+                        "background": "#EAEDF2",
+                        "secondary-fixed-dim": "#ffb871",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#44474c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg": [
+                            "Hanken Grotesk"
+                        ],
+                        "body-lg": [
+                            "Hanken Grotesk"
+                        ],
+                        "label-md": [
+                            "Hanken Grotesk"
+                        ],
+                        "body-sm": [
+                            "Hanken Grotesk"
+                        ],
+                        "headline-lg": [
+                            "Hanken Grotesk"
+                        ],
+                        "title-md": [
+                            "Hanken Grotesk"
+                        ],
+                        "label-sm": [
+                            "Hanken Grotesk"
+                        ],
+                        "headline-lg-mobile": [
+                            "Hanken Grotesk"
+                        ]
+                    },
+                    "fontSize": {
+                        "display-lg": [
+                            "40px",
+                            {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "body-lg": [
+                            "16px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "label-md": [
+                            "14px",
+                            {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "body-sm": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "headline-lg": [
+                            "32px",
+                            {
+                                "lineHeight": "40px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "title-md": [
+                            "20px",
+                            {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "label-sm": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "headline-lg-mobile": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                            }
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #EAEDF2;
+        }
+
+        /* Custom Scrollbar for inner content areas if needed */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c5c6cc;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8a97a9;
+        }
+    </style>
+</head>
+
+<body class="text-on-surface min-h-screen flex flex-col antialiased">
+    <!-- TopNavBar -->
+    <header class="bg-primary dark:bg-deep-navy-active shadow-md docked full-width top-0 z-50">
+        <div class="flex justify-between items-center w-full px-margin-desktop py-4 mx-auto max-w-[1440px]">
+            <!-- Brand -->
+            <div class="flex items-center gap-8">
+                <div class="text-title-md font-title-md font-bold text-on-primary">
+                    HRMS Portal
+                </div>
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center gap-6">
+                    <a class="text-secondary-container font-bold border-b-2 border-secondary-container pb-1 text-label-md font-label-md transition-all active:scale-95 duration-150"
+                        href="#">Employees</a>
+                    <a class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant px-2 py-1 rounded text-label-md font-label-md active:scale-95 duration-150"
+                        href="#">Attendance</a>
+                    <a class="text-on-primary-container hover:text-on-primary transition-colors hover:bg-primary-container dark:hover:bg-surface-variant px-2 py-1 rounded text-label-md font-label-md active:scale-95 duration-150"
+                        href="#">Time Off</a>
+                </nav>
+            </div>
+            <!-- Actions -->
+            <div class="flex items-center gap-4 text-on-primary dark:text-inverse-primary">
+                <!-- Search (Placeholder for structure) -->
+                <button aria-label="Search"
+                    class="p-2 rounded-full hover:bg-primary-container transition-all active:scale-95 duration-150">
+                    <span class="material-symbols-outlined" data-icon="search">search</span>
+                </button>
+                <button aria-label="Notifications"
+                    class="p-2 rounded-full hover:bg-primary-container transition-all active:scale-95 duration-150">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                </button>
+                <button aria-label="Help"
+                    class="p-2 rounded-full hover:bg-primary-container transition-all active:scale-95 duration-150">
+                    <span class="material-symbols-outlined" data-icon="help">help</span>
+                </button>
+                <div
+                    class="h-8 w-8 rounded-full overflow-hidden ml-2 border border-outline-variant cursor-pointer hover:ring-2 hover:ring-secondary-container transition-all">
+                    <img alt="User profile avatar" class="w-full h-full object-cover"
+                        data-alt="A professional headshot of a corporate employee on a neutral background, high resolution, soft lighting."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWeRJcR-jrz4bvoxs8hlbcCDPFWvNxfiBqbY9-Ab-iPzTrjRLAeJE5vBPSfEtCxq34v_-m9kc5LdR9N9-rZFvgkon4Ru7R13iB-IM1bb3LBSXNzVFlH906tVf7PPGTEh2GiXpubmgVUoX4joyRC3DMrhWYw3qLmTJcQWYQmLVHJCZmUkifQ81VlUAWJnPaKtPIH71ydgtkRQkMLJE7FzPDxXgF7G7LWeiNTnLE1VoQ9DvJm3dsq9bp" />
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="flex-grow flex justify-center p-margin-mobile md:p-margin-desktop overflow-hidden">
+        <div class="w-full max-w-container-max grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+            <!-- Left Pane: Profile Summary -->
+            <div class="lg:col-span-4 flex flex-col gap-6">
+                <!-- Profile Card -->
+                <div
+                    class="bg-surface-white border border-outline-variant rounded-xl p-6 relative overflow-hidden group">
+                    <div
+                        class="absolute top-4 right-4 text-primary bg-surface-container-low p-2 rounded-full cursor-pointer hover:bg-surface-container-high transition-colors">
+                        <span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+                    </div>
+                    <div class="flex flex-col items-center mb-6">
+                        <div
+                            class="w-24 h-24 rounded-full overflow-hidden border-4 border-surface-container-low mb-4 relative">
+                            <img alt="My Name" class="w-full h-full object-cover"
+                                data-alt="A close up professional corporate headshot of a smiling employee, brightly lit against a light gray modern office background, high quality."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbjnD_G1vay7FzjtSGkj0zgUCY2199Iv6W5slWTNtR3WYZ-eI_WqRZMcii7810qvOjPHd3n5qC_5f0PosgzIGiWTcaVR4ksvwsbj638RpiX6pfJexJnOtShln6Tb1gi83IUcgd9m-PQz9L0dqf0ugBxTgf2fSmi8xFk9tW2bAPZ0_DBlrlRHJKzgUi8ovd4Vn-SUEr_glRnhQyk2zbx6XLblIvOpsjvT3aYY-j7f7zJY2JSzws4FmX" />
+                            <!-- Overlay edit icon on hover -->
+                            <div
+                                class="absolute inset-0 bg-primary/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                                <span class="material-symbols-outlined text-surface-white"
+                                    data-icon="photo_camera">photo_camera</span>
+                            </div>
+                        </div>
+                        <h2 id="employee-name" class="text-title-md font-title-md text-primary mb-1">Eleanor Shellstrop
+                        </h2>
+                        <span id="employee-role"
+                            class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider bg-surface-container px-2 py-1 rounded">Admin</span>
+                    </div>
+                    <!-- Details List -->
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center pb-2 border-b border-surface-container-high">
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Login ID</span>
+                            <span id="employee-login"
+                                class="text-body-sm font-body-sm font-medium text-on-surface">ES-1042</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-surface-container-high">
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Email</span>
+                            <span id="employee-email"
+                                class="text-body-sm font-body-sm font-medium text-on-surface truncate ml-4">eleanor.s@company.com</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-surface-container-high">
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Mobile</span>
+                            <span id="employee-mobile" class="text-body-sm font-body-sm font-medium text-on-surface">+1
+                                (555) 019-2834</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-surface-container-high">
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Company</span>
+                            <span id="employee-company"
+                                class="text-body-sm font-body-sm font-medium text-on-surface">Acme Corp Global</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-surface-container-high">
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Department</span>
+                            <span id="employee-department"
+                                class="text-body-sm font-body-sm font-medium text-on-surface">Operations</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-surface-container-high">
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Manager</span>
+                            <span id="employee-manager"
+                                class="text-body-sm font-body-sm font-medium text-primary hover:underline cursor-pointer">Michael
+                                Realman</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-label-sm font-label-sm text-on-surface-variant">Location</span>
+                            <span id="employee-location"
+                                class="text-body-sm font-body-sm font-medium text-on-surface">New York, HQ</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Secondary Nav / Tabs -->
+                <div class="bg-surface-white border border-outline-variant rounded-xl p-2 flex flex-col gap-1">
+                    <button
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-left w-full group">
+                        <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors"
+                            data-icon="description">description</span>
+                        <span
+                            class="text-label-md font-label-md group-hover:text-primary transition-colors">Resume</span>
+                    </button>
+                    <button
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors text-left w-full group">
+                        <span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors"
+                            data-icon="lock">lock</span>
+                        <span class="text-label-md font-label-md group-hover:text-primary transition-colors">Private
+                            Info</span>
+                    </button>
+                    <button
+                        class="flex items-center justify-between px-4 py-3 rounded-lg bg-primary-container text-on-primary-container font-bold text-left w-full border-l-4 border-secondary-container">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-[20px] text-secondary-container"
+                                data-icon="account_balance_wallet">account_balance_wallet</span>
+                            <span class="text-label-md font-label-md text-surface-white">Salary Info</span>
+                        </div>
+                        <span class="material-symbols-outlined text-[16px] text-surface-white"
+                            data-icon="visibility">visibility</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Right Pane: Detailed Salary Information -->
+            <div class="lg:col-span-8">
+                <div class="bg-surface-white border border-outline-variant rounded-xl flex flex-col h-full shadow-sm">
+                    <!-- Header -->
+                    <div
+                        class="px-8 py-6 border-b border-surface-container-high flex justify-between items-center bg-surface-container-lowest rounded-t-xl">
+                        <div>
+                            <h1 class="text-headline-lg font-headline-lg text-primary md:block hidden">Salary
+                                Information</h1>
+                            <h1 class="text-headline-lg-mobile font-headline-lg-mobile text-primary md:hidden block">
+                                Salary Information</h1>
+                            <p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Manage compensation
+                                details. Visible only to administrators.</p>
+                        </div>
+                        <div
+                            class="bg-secondary-container/10 text-secondary-container px-3 py-1 rounded text-label-sm font-label-sm border border-secondary-container/20 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]"
+                                data-icon="admin_panel_settings">admin_panel_settings</span>
+                            Admin View
+                        </div>
+                    </div>
+                    <!-- Content Body -->
+                    <div class="p-8 flex flex-col gap-8">
+                        <!-- High Level Stats -->
+                        <div
+                            class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-surface p-6 rounded-lg border border-outline-variant/50">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="text-label-sm font-label-sm text-on-surface-variant block mb-1">Month
+                                        Wage</label>
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="text-headline-lg font-headline-lg text-on-surface">50,000</span>
+                                        <span class="text-body-sm font-body-sm text-on-surface-variant">/ Month</span>
+                                    </div>
+                                </div>
+                                <div class="pt-4 border-t border-surface-container-high">
+                                    <label class="text-label-sm font-label-sm text-on-surface-variant block mb-1">Yearly
+                                        Wage</label>
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="text-title-md font-title-md text-on-surface">600,000</span>
+                                        <span class="text-body-sm font-body-sm text-on-surface-variant">/ Yearly</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="text-label-md font-label-md text-on-surface block mb-2">No of working
+                                        days in a week:</label>
+                                    <input
+                                        class="w-full bg-surface-white border border-outline-variant rounded px-3 py-2 text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all"
+                                        type="text" value="5" />
+                                </div>
+                                <div>
+                                    <label class="text-label-md font-label-md text-on-surface block mb-2">Break Time
+                                        (hrs):</label>
+                                    <div class="flex items-center gap-2">
+                                        <input
+                                            class="w-full bg-surface-white border border-outline-variant rounded px-3 py-2 text-body-sm focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all"
+                                            type="text" value="1" />
+                                        <span
+                                            class="text-body-sm font-body-sm text-on-surface-variant whitespace-nowrap">/
+                                            hrs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Split Details Grid -->
+                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                            <!-- Left Column: Salary Components -->
+                            <div>
+                                <div class="flex items-center justify-between mb-4 border-b border-primary pb-2">
+                                    <h3 class="text-title-md font-title-md text-primary">Salary Components</h3>
+                                </div>
+                                <div class="space-y-5">
+                                    <!-- Component Item -->
+                                    <div class="group">
+                                        <div class="flex justify-between items-end mb-1">
+                                            <label class="text-label-md font-label-md text-on-surface">Basic
+                                                Salary</label>
+                                            <div class="flex items-center gap-4 text-body-sm font-body-sm">
+                                                <span class="font-medium">25,000.00 <span
+                                                        class="text-on-surface-variant">₹ / month</span></span>
+                                                <span
+                                                    class="bg-surface-container px-2 py-0.5 rounded text-label-sm">50.00
+                                                    %</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-[11px] text-on-surface-variant leading-tight">Define Basic salary
+                                            from company cost compute it based on monthly wages.</p>
+                                    </div>
+                                    <!-- Component Item -->
+                                    <div class="group">
+                                        <div class="flex justify-between items-end mb-1">
+                                            <label class="text-label-md font-label-md text-on-surface">House Rent
+                                                Allowance</label>
+                                            <div class="flex items-center gap-4 text-body-sm font-body-sm">
+                                                <span class="font-medium">12,500.00 <span
+                                                        class="text-on-surface-variant">₹ / month</span></span>
+                                                <span
+                                                    class="bg-surface-container px-2 py-0.5 rounded text-label-sm">50.00
+                                                    %</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-[11px] text-on-surface-variant leading-tight">HRA provided to
+                                            employees 50% of the basic salary.</p>
+                                    </div>
+                                    <!-- Component Item -->
+                                    <div class="group">
+                                        <div class="flex justify-between items-end mb-1">
+                                            <label class="text-label-md font-label-md text-on-surface">Standard
+                                                Allowance</label>
+                                            <div class="flex items-center gap-4 text-body-sm font-body-sm">
+                                                <span class="font-medium">4,167.00 <span
+                                                        class="text-on-surface-variant">₹ / month</span></span>
+                                                <span
+                                                    class="bg-surface-container px-2 py-0.5 rounded text-label-sm">16.67
+                                                    %</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-[11px] text-on-surface-variant leading-tight">A pre-determined,
+                                            fixed amount provided to employee.</p>
+                                    </div>
+                                    <!-- Component Item -->
+                                    <div class="group">
+                                        <div class="flex justify-between items-end mb-1">
+                                            <label class="text-label-md font-label-md text-on-surface">Performance
+                                                Bonus</label>
+                                            <div class="flex items-center gap-4 text-body-sm font-body-sm">
+                                                <span class="font-medium">2,082.50 <span
+                                                        class="text-on-surface-variant">₹ / month</span></span>
+                                                <span
+                                                    class="bg-surface-container px-2 py-0.5 rounded text-label-sm">8.33
+                                                    %</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-[11px] text-on-surface-variant leading-tight">Variable amount
+                                            paid during payroll. The value defined by the company calculated as a % of
+                                            basic salary.</p>
+                                    </div>
+                                    <!-- Component Item -->
+                                    <div class="group">
+                                        <div class="flex justify-between items-end mb-1">
+                                            <label class="text-label-md font-label-md text-on-surface">Leave Travel
+                                                Allowance</label>
+                                            <div class="flex items-center gap-4 text-body-sm font-body-sm">
+                                                <span class="font-medium">2,082.50 <span
+                                                        class="text-on-surface-variant">₹ / month</span></span>
+                                                <span
+                                                    class="bg-surface-container px-2 py-0.5 rounded text-label-sm">8.33
+                                                    %</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-[11px] text-on-surface-variant leading-tight">LTA is paid by the
+                                            company to employees to cover their travel calculated as a % of basic
+                                            salary.</p>
+                                    </div>
+                                    <!-- Component Item -->
+                                    <div class="group">
+                                        <div class="flex justify-between items-end mb-1">
+                                            <label class="text-label-md font-label-md text-on-surface">Fixed
+                                                Allowance</label>
+                                            <div class="flex items-center gap-4 text-body-sm font-body-sm">
+                                                <span class="font-medium">2,918.00 <span
+                                                        class="text-on-surface-variant">₹ / month</span></span>
+                                                <span
+                                                    class="bg-surface-container px-2 py-0.5 rounded text-label-sm">11.67
+                                                    %</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-[11px] text-on-surface-variant leading-tight">Fixed allowance
+                                            portion of wages is determined after calculating all salary components.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Right Column: Deductions -->
+                            <div class="flex flex-col gap-8">
+                                <!-- PF Section -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-4 border-b border-primary pb-2">
+                                        <h3 class="text-title-md font-title-md text-primary">Provident Fund (PF)
+                                            Contribution</h3>
+                                    </div>
+                                    <div class="space-y-5">
+                                        <div class="group">
+                                            <div class="flex justify-between items-end mb-1">
+                                                <label
+                                                    class="text-label-md font-label-md text-on-surface">Employee</label>
+                                                <div class="flex items-center gap-4 text-body-sm font-body-sm">
+                                                    <span class="font-medium">3,000.00 <span
+                                                            class="text-on-surface-variant">₹ / month</span></span>
+                                                    <span
+                                                        class="bg-surface-container px-2 py-0.5 rounded text-label-sm">12.00
+                                                        %</span>
+                                                </div>
+                                            </div>
+                                            <p class="text-[11px] text-on-surface-variant leading-tight">PF is
+                                                calculated based on the basic salary.</p>
+                                        </div>
+                                        <div class="group">
+                                            <div class="flex justify-between items-end mb-1">
+                                                <label
+                                                    class="text-label-md font-label-md text-on-surface">Employer</label>
+                                                <div class="flex items-center gap-4 text-body-sm font-body-sm">
+                                                    <span class="font-medium">3,000.00 <span
+                                                            class="text-on-surface-variant">₹ / month</span></span>
+                                                    <span
+                                                        class="bg-surface-container px-2 py-0.5 rounded text-label-sm">12.00
+                                                        %</span>
+                                                </div>
+                                            </div>
+                                            <p class="text-[11px] text-on-surface-variant leading-tight">PF is
+                                                calculated based on the basic salary.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tax Deductions Section -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-4 border-b border-primary pb-2">
+                                        <h3 class="text-title-md font-title-md text-primary">Tax Deductions</h3>
+                                    </div>
+                                    <div class="space-y-5">
+                                        <div class="group">
+                                            <div class="flex justify-between items-end mb-1">
+                                                <label class="text-label-md font-label-md text-on-surface">Professional
+                                                    Tax</label>
+                                                <div class="flex items-center gap-4 text-body-sm font-body-sm">
+                                                    <span class="font-medium text-error">200.00 <span
+                                                            class="text-on-surface-variant">₹ / month</span></span>
+                                                    <!-- No percentage typically shown for PT in this context -->
+                                                </div>
+                                            </div>
+                                            <p class="text-[11px] text-on-surface-variant leading-tight">Professional
+                                                Tax deducted from the Gross salary.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer Actions -->
+                    <div
+                        class="mt-auto border-t border-surface-container-high p-6 bg-surface-container-lowest rounded-b-xl flex justify-end gap-4">
+                        <button
+                            class="px-6 py-2 rounded border border-primary text-primary font-label-md text-label-md hover:bg-surface-container-low transition-colors">Cancel</button>
+                        <button
+                            class="px-6 py-2 rounded bg-secondary-container text-primary font-label-md text-label-md font-bold hover:bg-secondary-fixed transition-colors shadow-sm">Save
+                            Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        function getQueryParam(key) {
+            return new URLSearchParams(window.location.search).get(key) || '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const name = getQueryParam('name');
+            const role = getQueryParam('role');
+            const email = getQueryParam('email');
+            const mobile = getQueryParam('mobile');
+            const company = getQueryParam('company');
+            const department = getQueryParam('department');
+            const manager = getQueryParam('manager');
+            const location = getQueryParam('location');
+
+            if (name) document.getElementById('employee-name').textContent = name;
+            if (role) document.getElementById('employee-role').textContent = role;
+            if (email) document.getElementById('employee-email').textContent = email;
+            if (mobile) document.getElementById('employee-mobile').textContent = mobile;
+            if (company) document.getElementById('employee-company').textContent = company;
+            if (department) document.getElementById('employee-department').textContent = department;
+            if (manager) document.getElementById('employee-manager').textContent = manager;
+            if (location) document.getElementById('employee-location').textContent = location;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Employee Dashboard - Attendance &amp; Time Off</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#eef1f6",
+                        "on-primary-fixed-variant": "#3c4858",
+                        "surface-bright": "#f7f9ff",
+                        "surface-white": "#FFFFFF",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#ffb871",
+                        "tertiary-fixed": "#f9dfbb",
+                        "surface": "#f7f9ff",
+                        "inverse-surface": "#2d3135",
+                        "secondary-container": "#f89300",
+                        "surface-dim": "#d7dadf",
+                        "surface-container-low": "#f1f4f9",
+                        "primary-fixed-dim": "#bbc7db",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e5e8ed",
+                        "secondary": "#8b5000",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#0e1a28",
+                        "primary-container": "#232f3e",
+                        "primary-fixed": "#d7e3f7",
+                        "surface-container": "#ebeef3",
+                        "on-tertiary-fixed": "#261904",
+                        "on-background": "#181c20",
+                        "tertiary": "#241803",
+                        "on-secondary-fixed-variant": "#6a3c00",
+                        "on-primary-container": "#8a97a9",
+                        "outline": "#75777c",
+                        "on-tertiary-fixed-variant": "#55442a",
+                        "surface-container-highest": "#e0e3e8",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#ffdcbe",
+                        "deep-navy-active": "#121E2F",
+                        "outline-variant": "#c5c6cc",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#181c20",
+                        "background": "#f7f9ff",
+                        "on-surface-variant": "#44474c",
+                        "tertiary-container": "#3b2c14",
+                        "on-primary-fixed": "#101c2b",
+                        "on-secondary-container": "#5f3500",
+                        "inverse-primary": "#bbc7db",
+                        "surface-tint": "#535f70",
+                        "on-secondary-fixed": "#2d1600",
+                        "on-tertiary-container": "#a99373",
+                        "surface-variant": "#e0e3e8",
+                        "tertiary-fixed-dim": "#dcc3a1",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        /* Custom scrollbar for table */
+        .table-container::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f4f9;
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: #c5c6cc;
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #75777c;
+        }
+
+        /* Tabs styling */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-[#EAEDF2] text-on-surface font-body-lg min-h-screen flex flex-col">
+    <!-- TopNavBar -->
+    <nav class="bg-primary flex justify-between items-center w-full px-margin-desktop py-4 sticky top-0 z-50">
+        <div class="flex items-center gap-8">
+            <div class="text-title-md font-title-md font-bold text-on-primary">
+                HRMS Portal
+            </div>
+            <div class="hidden md:flex gap-6 items-center">
+                <a class="text-label-md font-label-md text-on-primary/80 hover:text-secondary-fixed transition-colors duration-200"
+                    href="employee_landing_page.html">Employees</a>
+                <a class="text-label-md font-label-md text-secondary-fixed font-bold border-b-2 border-secondary-fixed pb-1"
+                    href="#">Attendance</a>
+                <a class="text-label-md font-label-md text-on-primary/80 hover:text-secondary-fixed transition-colors duration-200"
+                    href="#">Time Off</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="hidden md:flex gap-4 text-on-primary">
+                <button
+                    class="hover:text-secondary-fixed transition-colors duration-200 flex items-center justify-center">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                </button>
+                <button
+                    class="hover:text-secondary-fixed transition-colors duration-200 flex items-center justify-center">
+                    <span class="material-symbols-outlined" data-icon="help">help</span>
+                </button>
+            </div>
+            <img alt="User profile photo" class="w-10 h-10 rounded-full object-cover border-2 border-surface-container"
+                data-alt="A professional headshot of a corporate employee smiling slightly, well-lit studio lighting, neutral background, modern corporate style."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAog-xLYSx7aZCyU4Nvy-jQ56LVRomN8uw62OY4m6gQ1qJXBEGDnvGoC6isswS9hP0Kw4V8VUtNDzdKq5t3YgrD-J9D7qfMg1ET8r-hH1_-fkX1qf-3Qt935D5uxG3Q3V0spVFR5s9vVra_vEXbqZUa0vdOOUzTBpYffzpszHJJ4a_OlfBe7WJNUlOJbrzeIl_wrxaql0OwFcbfFFhqcNjyVJ3QrIe06dl6N4YjRBHP73BbGkMP2Nzi" />
+        </div>
+    </nav>
+    <!-- Main Content Stage -->
+    <main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8">
+        <!-- Tab Navigation (Page Level) -->
+        <div class="flex gap-4 mb-8 border-b border-outline-variant">
+            <button
+                class="px-4 py-2 text-label-md font-label-md text-primary font-bold border-b-2 border-secondary-container transition-colors"
+                id="tab-btn-attendance" onclick="switchTab('attendance')">My Attendance</button>
+            <button
+                class="px-4 py-2 text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                id="tab-btn-timeoff" onclick="switchTab('timeoff')">Time Off</button>
+        </div>
+        <!-- Attendance Tab Content -->
+        <div class="tab-content active space-y-6" id="tab-attendance">
+            <!-- Controls Bar -->
+            <div
+                class="bg-surface-white rounded-xl border border-outline-variant p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <button
+                        class="p-2 rounded border border-outline-variant hover:bg-surface-container-low transition-colors text-on-surface flex items-center justify-center">
+                        <span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+                    </button>
+                    <button
+                        class="p-2 rounded border border-outline-variant hover:bg-surface-container-low transition-colors text-on-surface flex items-center justify-center">
+                        <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+                    </button>
+                    <div class="relative">
+                        <select
+                            class="appearance-none bg-surface-white border border-outline-variant text-on-surface text-label-md font-label-md rounded px-4 py-2 pr-8 focus:outline-none focus:border-secondary-container focus:ring-1 focus:ring-secondary-container cursor-pointer">
+                            <option>October 2025</option>
+                            <option>September 2025</option>
+                        </select>
+                        <span
+                            class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant"
+                            data-icon="expand_more">expand_more</span>
+                    </div>
+                </div>
+                <div class="flex gap-4 text-center">
+                    <div class="bg-surface-container-low border border-outline-variant rounded p-2 min-w-[120px]">
+                        <div class="text-label-sm font-label-sm text-on-surface-variant">Days Present</div>
+                        <div class="text-title-md font-title-md text-primary">22</div>
+                    </div>
+                    <div class="bg-surface-container-low border border-outline-variant rounded p-2 min-w-[120px]">
+                        <div class="text-label-sm font-label-sm text-on-surface-variant">Leaves Taken</div>
+                        <div class="text-title-md font-title-md text-primary">2</div>
+                    </div>
+                    <div class="bg-surface-container-low border border-outline-variant rounded p-2 min-w-[120px]">
+                        <div class="text-label-sm font-label-sm text-on-surface-variant">Working Days</div>
+                        <div class="text-title-md font-title-md text-primary">24</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Attendance Table -->
+            <div class="bg-surface-white rounded-xl border border-outline-variant overflow-hidden">
+                <div
+                    class="p-4 bg-surface-container-low border-b border-outline-variant text-label-md font-label-md text-primary font-bold">
+                    October 2025
+                </div>
+                <div class="table-container overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
+                        <thead>
+                            <tr class="border-b border-outline-variant bg-surface-bright">
+                                <th class="p-4 text-label-sm font-label-sm text-on-surface-variant font-semibold">Date
+                                </th>
+                                <th class="p-4 text-label-sm font-label-sm text-on-surface-variant font-semibold">Check
+                                    In</th>
+                                <th class="p-4 text-label-sm font-label-sm text-on-surface-variant font-semibold">Check
+                                    Out</th>
+                                <th class="p-4 text-label-sm font-label-sm text-on-surface-variant font-semibold">Work
+                                    Hours</th>
+                                <th class="p-4 text-label-sm font-label-sm text-on-surface-variant font-semibold">Extra
+                                    Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-body-sm font-body-sm text-on-surface">
+                            <tr
+                                class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+                                <td class="p-4 font-medium">28/10/2025</td>
+                                <td class="p-4">10:00</td>
+                                <td class="p-4">19:00</td>
+                                <td class="p-4">09:00</td>
+                                <td class="p-4 text-on-surface-variant">01:00</td>
+                            </tr>
+                            <tr
+                                class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+                                <td class="p-4 font-medium">29/10/2025</td>
+                                <td class="p-4">10:00</td>
+                                <td class="p-4">19:00</td>
+                                <td class="p-4">09:00</td>
+                                <td class="p-4 text-on-surface-variant">01:00</td>
+                            </tr>
+                            <tr
+                                class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors bg-surface-container-lowest">
+                                <td class="p-4 font-medium">30/10/2025</td>
+                                <td class="p-4 text-error">Missed</td>
+                                <td class="p-4 text-error">Missed</td>
+                                <td class="p-4">-</td>
+                                <td class="p-4">-</td>
+                            </tr>
+                            <tr
+                                class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+                                <td class="p-4 font-medium">31/10/2025</td>
+                                <td class="p-4">09:30</td>
+                                <td class="p-4">18:30</td>
+                                <td class="p-4">09:00</td>
+                                <td class="p-4 text-on-surface-variant">00:30</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Time Off Tab Content -->
+        <div class="tab-content space-y-6" id="tab-timeoff">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-title-md font-title-md text-primary">My Time Off</h2>
+                <button
+                    class="bg-secondary-container text-on-primary px-6 py-2 rounded font-label-md text-label-md font-bold hover:bg-secondary transition-colors flex items-center gap-2"
+                    onclick="document.getElementById('request-modal').classList.remove('hidden')">
+                    <span class="material-symbols-outlined" data-icon="add">add</span> New Request
+                </button>
+            </div>
+            <!-- Balances -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Paid Time Off -->
+                <div
+                    class="bg-surface-white rounded-xl border border-outline-variant p-6 flex items-center justify-between">
+                    <div>
+                        <div class="text-label-md font-label-md text-on-surface-variant mb-1">Paid Time Off</div>
+                        <div class="text-display-lg font-display-lg text-primary">24 <span
+                                class="text-title-md font-title-md text-on-surface-variant font-normal">Days
+                                Available</span></div>
+                    </div>
+                    <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-3xl"
+                            data-icon="flight_takeoff">flight_takeoff</span>
+                    </div>
+                </div>
+                <!-- Sick Leave -->
+                <div
+                    class="bg-surface-white rounded-xl border border-outline-variant p-6 flex items-center justify-between">
+                    <div>
+                        <div class="text-label-md font-label-md text-on-surface-variant mb-1">Sick Time Off</div>
+                        <div class="text-display-lg font-display-lg text-primary">07 <span
+                                class="text-title-md font-title-md text-on-surface-variant font-normal">Days
+                                Available</span></div>
+                    </div>
+                    <div class="w-16 h-16 rounded-full bg-error-container flex items-center justify-center text-error">
+                        <span class="material-symbols-outlined text-3xl"
+                            data-icon="medical_services">medical_services</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Placeholder for Calendar View (Simplified structural representation) -->
+            <div class="bg-surface-white rounded-xl border border-outline-variant p-6 mt-8">
+                <div class="flex justify-between items-center mb-6 border-b border-outline-variant pb-4">
+                    <h3 class="text-title-md font-title-md text-primary">Calendar View (2026)</h3>
+                    <div class="flex gap-4 text-label-sm font-label-sm">
+                        <div class="flex items-center gap-1">
+                            <div class="w-3 h-3 bg-secondary-container rounded-full"></div> Approved
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <div class="w-3 h-3 bg-surface-tint rounded-full"></div> Pending
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <div class="w-3 h-3 bg-error rounded-full"></div> Rejected
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="w-full h-64 bg-surface-container-low rounded border border-outline-variant flex items-center justify-center text-on-surface-variant">
+                    <span class="material-symbols-outlined mr-2" data-icon="calendar_month">calendar_month</span> Annual
+                    Calendar Visualization Canvas
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- New Request Modal -->
+    <div class="hidden fixed inset-0 bg-primary/80 z-[100] flex items-center justify-center p-4 backdrop-blur-sm"
+        id="request-modal">
+        <div
+            class="bg-surface-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden flex flex-col border border-outline-variant">
+            <div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+                <h3 class="text-title-md font-title-md text-primary">Time Off Request</h3>
+                <button class="text-on-surface-variant hover:text-primary transition-colors"
+                    onclick="document.getElementById('request-modal').classList.add('hidden')">
+                    <span class="material-symbols-outlined" data-icon="close">close</span>
+                </button>
+            </div>
+            <div class="p-6 space-y-4 flex-grow overflow-y-auto">
+                <div>
+                    <label class="block text-label-md font-label-md text-on-surface-variant mb-1">Time Off Type</label>
+                    <select
+                        class="w-full border border-outline-variant rounded p-2 text-body-lg font-body-lg focus:border-secondary-container focus:ring-1 focus:ring-secondary-container bg-surface-white">
+                        <option>Paid Time Off</option>
+                        <option>Sick Leave</option>
+                        <option>Unpaid Leave</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-label-md font-label-md text-on-surface-variant mb-1">From Date</label>
+                        <input
+                            class="w-full border border-outline-variant rounded p-2 text-body-lg font-body-lg focus:border-secondary-container focus:ring-1 focus:ring-secondary-container"
+                            type="date" />
+                    </div>
+                    <div>
+                        <label class="block text-label-md font-label-md text-on-surface-variant mb-1">To Date</label>
+                        <input
+                            class="w-full border border-outline-variant rounded p-2 text-body-lg font-body-lg focus:border-secondary-container focus:ring-1 focus:ring-secondary-container"
+                            type="date" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-label-md font-label-md text-on-surface-variant mb-1">Allocation</label>
+                    <div class="flex items-center gap-2">
+                        <input
+                            class="w-24 border border-outline-variant rounded p-2 text-body-lg font-body-lg bg-surface-container-low"
+                            readonly="" type="number" value="1.00" />
+                        <span class="text-body-lg font-body-lg text-on-surface">Days</span>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-label-md font-label-md text-on-surface-variant mb-1">Attachment <span
+                            class="text-label-sm font-label-sm font-normal">(For sick leave certificate)</span></label>
+                    <div
+                        class="border-2 border-dashed border-outline-variant rounded p-4 text-center cursor-pointer hover:bg-surface-container-low transition-colors">
+                        <span class="material-symbols-outlined text-primary mb-2"
+                            data-icon="upload_file">upload_file</span>
+                        <div class="text-label-sm font-label-sm text-primary">Click to upload or drag and drop</div>
+                    </div>
+                </div>
+            </div>
+            <div class="px-6 py-4 border-t border-outline-variant flex justify-end gap-3 bg-surface-bright">
+                <button
+                    class="px-4 py-2 border border-primary text-primary rounded font-label-md text-label-md font-bold hover:bg-surface-container-low transition-colors"
+                    onclick="document.getElementById('request-modal').classList.add('hidden')">Discard</button>
+                <button
+                    class="px-4 py-2 bg-secondary-container text-on-primary rounded font-label-md text-label-md font-bold hover:bg-secondary transition-colors">Submit
+                    Request</button>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-surface-container-lowest border-t border-outline-variant w-full mt-auto">
+        <div
+            class="max-w-container-max mx-auto px-margin-desktop py-base flex flex-col md:flex-row justify-between items-center text-body-sm font-body-sm text-on-surface-variant">
+            <div class="text-label-md font-label-md font-semibold text-primary mb-2 md:mb-0">Corporate Modern HRMS</div>
+            <div>© 2024 Corporate Modern HRMS. All rights reserved.</div>
+            <div class="flex gap-4 mt-2 md:mt-0">
+                <a class="hover:text-secondary transition-colors duration-200" href="#">Privacy Policy</a>
+                <a class="hover:text-secondary transition-colors duration-200" href="#">Terms of Service</a>
+                <a class="hover:text-secondary transition-colors duration-200" href="#">Support</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            // Remove active styles from buttons
+            document.getElementById('tab-btn-attendance').className = "px-4 py-2 text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors";
+            document.getElementById('tab-btn-timeoff').className = "px-4 py-2 text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors";
+
+            // Show selected tab
+            document.getElementById('tab-' + tabId).classList.add('active');
+            // Add active styles to button
+            document.getElementById('tab-btn-' + tabId).className = "px-4 py-2 text-label-md font-label-md text-primary font-bold border-b-2 border-secondary-container transition-colors";
+        }
+    </script>
+</body>
+
+</html>

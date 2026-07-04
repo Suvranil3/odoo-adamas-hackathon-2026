@@ -145,7 +145,7 @@
                     </p>
                 </div>
                 <!-- Registration Form -->
-                <form action="#" class="space-y-6" method="POST">
+                <form action="#" class="space-y-6" method="POST" data-redirect="loginpage.html">
                     <!-- Company Name -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Company Name -->
@@ -291,8 +291,7 @@
         <!-- Right Side: Visual / Branding -->
         <div class="hidden md:block w-1/2 relative bg-surface-container-high overflow-hidden">
             <!-- Background Image -->
-            <div class="absolute inset-0 bg-cover bg-center"
-                style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLt30gs91hB3leX0sDt3-CGLgPrIe5Q8ZIilmsb0-5olTCLfl-wV0js64PilVEms5x-uZujpLzdYrxvc5Nyf2xPTT1eh94EglpHyUh1w0ka6nHtYwRJLGGavjrO9qo8yvRoT0K8nqm3O0znjvLYByukzjkax5dsFv3UJdoKQgxHE6pW1Nk0KLiNu34ffIb_68fx0K_4vtf5zsOl879mdS60u4tywZIjVKWDc1japSjTgqWKsHWad54it-w');">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/background.png');">
                 <!-- Overlay Gradient to ensure text readability -->
                 <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent"></div>
             </div>
@@ -329,8 +328,17 @@
             }
         }
     </script>
-
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const signUpForm = document.querySelector('form[data-redirect]');
+            if (signUpForm) {
+                signUpForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    window.location.href = signUpForm.getAttribute('data-redirect');
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
